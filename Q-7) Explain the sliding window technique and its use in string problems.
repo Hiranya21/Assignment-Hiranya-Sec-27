@@ -1,0 +1,33 @@
+import java.util.HashSet;
+
+public class LongestUniqueSubstring {
+
+    public static int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        int maxLength = 0;
+        int start = 0;
+
+        HashSet<Character> seen = new HashSet<>();
+
+        for (int end = 0; end < n; end++) {
+            char current = s.charAt(end);
+
+            // If character is repeated, shrink window from start
+            while (seen.contains(current)) {
+                seen.remove(s.charAt(start));
+                start++;
+            }
+
+            seen.add(current);
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+
+        return maxLength;
+    }
+
+    public static void main(String[] args) {
+        String input = "abcabcbb";
+        int result = lengthOfLongestSubstring(input);
+        System.out.println("Length of the longest substring without repeating characters: " + result);
+    }
+}
