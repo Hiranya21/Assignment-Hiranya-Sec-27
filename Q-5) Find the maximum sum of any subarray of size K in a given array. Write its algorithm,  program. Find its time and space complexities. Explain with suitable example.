@@ -1,0 +1,53 @@
+🧠 Algorithm
+Compute the total sum of the array.
+Initialize leftSum = 0
+Traverse from index 0 to n - 2:
+Add current element to leftSum
+Compute rightSum = totalSum - leftSum
+If leftSum == rightSum, return true
+If no such point is found, return false
+💻 Java Program
+public class EqualPrefixSuffixSplit {
+
+    public static boolean canBeSplit(int[] arr) {
+        int totalSum = 0;
+        for (int num : arr) {
+            totalSum += num;
+        }
+
+        int leftSum = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            leftSum += arr[i];
+            int rightSum = totalSum - leftSum;
+            if (leftSum == rightSum) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 10};
+        boolean result = canBeSplit(arr);
+
+        if (result) {
+            System.out.println("The array CAN be split into two parts with equal sum.");
+        } else {
+            System.out.println("The array CANNOT be split into two parts with equal sum.");
+        }
+    }
+}
+📌 Example
+Input:
+arr = [1, 2, 3, 4, 10]
+Total Sum:
+1 + 2 + 3 + 4 + 10 = 20
+Try to split at index 3:
+Left sum = 1 + 2 + 3 + 4 = 10
+Right sum = 10
+✅ Equal! The array can be split.
+⏱️ Time & Space Complexity
+Operation	Complexity
+Time	O(n)
+Space	O(1)
