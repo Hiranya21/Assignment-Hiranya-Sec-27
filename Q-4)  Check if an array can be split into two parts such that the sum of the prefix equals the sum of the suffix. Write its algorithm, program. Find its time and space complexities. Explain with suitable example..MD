@@ -1,37 +1,4 @@
-
-
-## ✅ Problem Statement
-
-Given an array `arr[]`, check if it can be split into **two non-empty parts** such that:
-
-```
-sum of prefix == sum of suffix
-```
-
-In other words, find an index `i` such that:
-
-```
-arr[0] + arr[1] + ... + arr[i] == arr[i+1] + ... + arr[n-1]
-```
-
----
-
-## 🧠 Algorithm
-
-1. Compute the **total sum** of the array.
-2. Initialize `leftSum = 0`
-3. Traverse from index `0` to `n - 2`:
-   - Add current element to `leftSum`
-   - Compute `rightSum = totalSum - leftSum`
-   - If `leftSum == rightSum`, return `true`
-4. If no such point is found, return `false`
-
----
-
-## 💻 Java Program
-
-```java
-public class EqualPrefixSuffixSplit {
+public class EqualPrefixSuffixSum {
 
     public static boolean canBeSplit(int[] arr) {
         int totalSum = 0;
@@ -40,9 +7,11 @@ public class EqualPrefixSuffixSplit {
         }
 
         int leftSum = 0;
+        // Go until second last element to avoid empty suffix
         for (int i = 0; i < arr.length - 1; i++) {
             leftSum += arr[i];
             int rightSum = totalSum - leftSum;
+
             if (leftSum == rightSum) {
                 return true;
             }
@@ -52,49 +21,8 @@ public class EqualPrefixSuffixSplit {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 10};
+        int[] arr = {1, 2, 3, 4, 6};
         boolean result = canBeSplit(arr);
-
-        if (result) {
-            System.out.println("The array CAN be split into two parts with equal sum.");
-        } else {
-            System.out.println("The array CANNOT be split into two parts with equal sum.");
-        }
+        System.out.println("Can the array be split into equal prefix and suffix sums? " + result);
     }
 }
-```
-
----
-
-## 📌 Example
-
-### Input:
-```
-arr = [1, 2, 3, 4, 10]
-```
-
-### Total Sum:
-```
-1 + 2 + 3 + 4 + 10 = 20
-```
-
-### Try to split at index 3:
-- Left sum = 1 + 2 + 3 + 4 = 10  
-- Right sum = 10  
-✅ Equal! The array can be split.
-
----
-
-## ⏱️ Time & Space Complexity
-
-| Operation          | Complexity |
-|--------------------|------------|
-| Time               | O(n)       |
-| Space              | O(1)       |
-
----
-
-## 📚 Summary
-
-This solution is efficient and perfect when you need to check only **one split point** where the prefix sum equals the suffix sum in a single pass. It avoids extra space and works in linear time.
-```
