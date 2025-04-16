@@ -1,67 +1,33 @@
-✅ Algorithm
-Let’s denote the array as A of size n.
+public class EquilibriumIndex {
 
-Steps:
-
-Find the total sum of the array, say totalSum.
-
-Initialize leftSum = 0.
-
-Traverse the array:
-
-At index i, compute rightSum = totalSum - leftSum - A[i].
-
-If leftSum == rightSum, then index i is an equilibrium index.
-
-Update leftSum = leftSum + A[i].
-
-Continue this for all indices.
-
-✅ Java Program
-java
-Copy
-Edit
-import java.util.ArrayList;
-
-public class EquilibriumIndexFinder {
-
-    public static ArrayList<Integer> findEquilibriumIndices(int[] arr) {
-        ArrayList<Integer> result = new ArrayList<>();
+    public static int findEquilibriumIndex(int[] arr) {
         int totalSum = 0;
-        int leftSum = 0;
-
-        // Step 1: Calculate total sum
         for (int num : arr) {
             totalSum += num;
         }
 
-        // Step 2: Traverse the array and check equilibrium condition
+        int leftSum = 0;
         for (int i = 0; i < arr.length; i++) {
-            int rightSum = totalSum - leftSum - arr[i];
+            totalSum -= arr[i];  // totalSum now becomes rightSum
 
-            if (leftSum == rightSum) {
-                result.add(i);
+            if (leftSum == totalSum) {
+                return i;  // equilibrium index found
             }
 
             leftSum += arr[i];
         }
 
-        return result;
+        return -1;  // no equilibrium index found
     }
 
     public static void main(String[] args) {
         int[] arr = {-7, 1, 5, 2, -4, 3, 0};
-        ArrayList<Integer> equilibriumIndices = findEquilibriumIndices(arr);
+        int index = findEquilibriumIndex(arr);
 
-        System.out.println("Equilibrium indices: " + equilibriumIndices);
+        if (index != -1) {
+            System.out.println("Equilibrium index found at: " + index);
+        } else {
+            System.out.println("No equilibrium index found.");
+        }
     }
 }
-✅ Output
-less
-Copy
-Edit
-Equilibrium indices: [3, 5, 6]
-✅ Time and Space Complexity
-Time Complexity: O(n) – Two traversals: one for total sum, one for checking equilibrium.
-
-Space Complexity: O(1) – Ignoring the result list. Internally uses a list to store the results.
